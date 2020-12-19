@@ -16,9 +16,11 @@ class UserController extends Controller
     *
     * Maximum Parameter List : email, password
     *
-    * @return json array
+    * @return  \Illuminate\Http\Response
     */
    public function authenticate(Request $request) {
+      $response_type = $request->format('json');
+      
       $this->validate($request, [
        'email'    => 'required',
        'password' => 'required'
@@ -42,7 +44,7 @@ class UserController extends Controller
           $response_status = 404;
       }
 
-      return response()->json($return_data, $response_status);
+      return response()->$response_type($return_data, $response_status);
    }
 
    /**
@@ -50,10 +52,12 @@ class UserController extends Controller
     *
     * Maximum Parameter List : first_name, last_name, phone, email, password
     *
-    * @return json array
+    * @return  \Illuminate\Http\Response
     */
    public function register(Request $request) {
-	    $this->validate($request, [
+      $response_type = $request->format('json');
+	    
+      $this->validate($request, [
 	       'first_name' => 'required',
 	       'last_name'  => 'required',
 	       'phone'      => 'required|min:11',
@@ -75,7 +79,7 @@ class UserController extends Controller
     		'status' 	=> 'success',
 	    	'message' 	=> 'Your account created successfully, Now logged in to step forward.'
 	    ];
-      	return response()->json($return_data, $response_status);
+      return response()->$response_type($return_data, $response_status);
       
    }
 
@@ -83,10 +87,12 @@ class UserController extends Controller
    /**
     * Get current logged in user 
     *
-    * @return json array
+    * @return  \Illuminate\Http\Response
     */
    public function currentUser(Request $request) {
-	  $response_status = 200;
+      $response_type = $request->format('json');  
+	    
+      $response_status = 200;
       
       $return_data = [
       	'status' => 'success', 
@@ -94,6 +100,6 @@ class UserController extends Controller
       	'user' => Auth::user()->simpleUserData()
       ];
       
-      return response()->json($return_data, $response_status);
+      return response()->$response_type($return_data, $response_status);
    }
 }    
