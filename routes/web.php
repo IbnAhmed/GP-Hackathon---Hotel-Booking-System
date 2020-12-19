@@ -31,12 +31,18 @@ $router->group(['prefix' => 'api/'], function ($router) {
 		$router->put('customers/{id}','CustomerController@update');
 		$router->delete('customers/{id}','CustomerController@destroy');
 
-
 		// Booking
 		$router->get('bookings','BookingController@index');
 		$router->post('bookings','BookingController@store');
 		$router->get('bookings/{id}','BookingController@show');
 		$router->put('bookings/{id}','BookingController@update');
 		$router->delete('bookings/{id}','BookingController@destroy');
+
+		// Room
+		$router->get('rooms','RoomController@index');
+		$router->post('rooms','RoomController@store');
+		$router->get('rooms/{id}','RoomController@show');
+		$router->put('rooms/{id}','RoomController@update');
+		$router->delete('rooms/{id}','RoomController@destroy');
 	});
 });
