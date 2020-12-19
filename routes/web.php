@@ -38,6 +38,9 @@ $router->group(['prefix' => 'api/'], function ($router) {
 		$router->put('bookings/{id}','BookingController@update');
 		$router->delete('bookings/{id}','BookingController@destroy');
 
+		$router->post('bookings/{id}/check-in','BookingController@checkIn');
+		$router->post('bookings/{id}/check-out','BookingController@checkOut');
+
 		// Room
 		$router->get('rooms','RoomController@index');
 		$router->post('rooms','RoomController@store');

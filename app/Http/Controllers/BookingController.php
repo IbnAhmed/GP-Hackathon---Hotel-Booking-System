@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Models\Booking;
 use App\Models\Room;
+use Carbon\Carbon;
+
 
 class BookingController extends Controller
 {
@@ -128,7 +130,7 @@ class BookingController extends Controller
               $booking->save();
 
               if ($booking) {
-                  
+
                   // response if data saved
                   $response = [
                       'status'    => 'success',
@@ -350,6 +352,136 @@ class BookingController extends Controller
         }
 
         // return json response
+        return response()->$response_type($response, $response_status);
+    }
+
+    /**
+     * Check In.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function checkIn(Request $request, $id){
+        $response_type = $request->format('json');
+
+        $response_status = 200;
+
+        // find Booking with id
+        $booking =  Booking::find($id);
+        if ($booking == null) {
+
+            // checking if id exists
+            $response = [
+                'status'    => 'error',
+                'message'   => 'Booking does not exist',
+            ];
+            $response_status = 404;
+
+        } else {
+            $room = Room::find($booking->id);
+
+            if($room){
+              // Check in
+              $booking->arrival = Carbon::now();
+              $booking->update();
+
+              $room->is_locked = 1;
+              $room->save();
+
+              if ($booking) {
+
+                  // if Check in successfull
+                  $response = [
+                      'status'    => 'success',
+                      'message'   => 'Checked in successfully',
+                  ];
+              } else {
+
+                  // if Check in failed
+                  $response = [
+                      'status'    => 'error',
+                      'message'   => 'Checked in failed',
+                  ];
+                  $response_status = 500;
+              }
+            } else {
+
+                // if Check in failed
+                $response = [
+                    'status'    => 'error',
+                    'message'   => 'Booked room not found. please update new room for this booking.',
+                ];
+                $response_status = 404;
+            }
+            
+        }
+
+        return response()->$response_type($response, $response_status);
+    }
+
+    /**
+     * Check Out.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function checkOut(Request $request, $id){
+        $response_type = $request->format('json');
+
+        $response_status = 200;
+
+        // find Booking with id
+        $booking =  Booking::find($id);
+        if ($booking == null) {
+
+            // checking if id exists
+            $response = [
+                'status'    => 'error',
+                'message'   => 'Booking does not exist',
+            ];
+            $response_status = 404;
+
+        } else {
+            $room = Room::find($booking->id);
+
+            if($room){
+              // Check out
+              $booking->checkout = Carbon::now();
+              $booking->update();
+
+              $room->is_locked = 0;
+              $room->save();
+              
+              if ($booking) {
+
+                  // if Check out successfull
+                  $response = [
+                      'status'    => 'success',
+                      'message'   => 'Checked out successfully',
+                  ];
+              } else {
+
+                  // if Check out failed
+                  $response = [
+                      'status'    => 'error',
+                      'message'   => 'Checked out failed',
+                  ];
+                  $response_status = 500;
+              }
+            } else {
+
+                // if Check out failed
+                $response = [
+                    'status'    => 'error',
+                    'message'   => 'Booked room not found. please update new room for this booking.',
+                ];
+                $response_status = 404;
+            }
+            
+        }
+
         return response()->$response_type($response, $response_status);
     }
 }
