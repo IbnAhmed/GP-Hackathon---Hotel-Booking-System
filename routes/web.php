@@ -44,5 +44,12 @@ $router->group(['prefix' => 'api/'], function ($router) {
 		$router->get('rooms/{id}','RoomController@show');
 		$router->put('rooms/{id}','RoomController@update');
 		$router->delete('rooms/{id}','RoomController@destroy');
+
+		// Payment
+		$router->get('payments','PaymentController@index');
+		$router->post('payments','PaymentController@store');
+		$router->get('payments/{id}','PaymentController@show');
+		$router->put('payments/{id}','PaymentController@update');
+		$router->delete('payments/{id}','PaymentController@destroy');
 	});
 });
