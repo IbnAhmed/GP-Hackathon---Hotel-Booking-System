@@ -13,7 +13,7 @@ Develop a hotel booking system using REST API. The hotel has 10 rooms, customers
 7. Run the project in local - `php -S localhost:8000 -t public`. Base url will be `http://localhost:8000`.
 
 
-## Demo user for auth
+## Demo User For Auth
 
 Email: `admin.user@gp-hackathon.com`<br>
 Password: `password123`
