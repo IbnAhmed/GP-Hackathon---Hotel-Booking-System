@@ -11,6 +11,7 @@ Develop a hotel booking system using REST API. The hotel has 10 rooms, customers
 5. Migrate all DB table - `php artisan migrate` (Run it from the project root folder).
 6. Populate DB with some demo data - `php artisan db:seed`  (Run it from the project root folder).
 7. Run the project in local - `php -S localhost:8000 -t public`. Base url will be `http://localhost:8000`.
+8. Run test case - `./vendor/bin/phpunit` (Run it from the project root folder).
 
 
 ## Demo User For Auth
