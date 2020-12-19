@@ -48,6 +48,8 @@ $router->group(['prefix' => 'api/'], function ($router) {
 		$router->get('rooms/{id}','RoomController@show');
 		$router->put('rooms/{id}','RoomController@update');
 		$router->delete('rooms/{id}','RoomController@destroy');
+		
+		$router->get('rooms-available','RoomController@availableRooms');
 
 		// Payment
 		$router->get('payments','PaymentController@index');

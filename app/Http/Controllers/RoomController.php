@@ -284,4 +284,57 @@ class RoomController extends Controller
         // return json response
         return response()->$response_type($response, $response_status);
     }
+
+    /**
+     * Get All Available Rooms
+     *
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function availableRooms(Request $request){
+       $response_type = $request->format('json');
+       
+       $response_status = 200;
+
+       $rooms = Room::where('is_locked', 0)->paginate(15);
+
+
+       // item per page
+       if($request->has('per_page')){
+           $per_page = $request->per_page;
+           
+           if($per_page == 'all'){
+               $per_page = Room::count();
+           }
+       } else {
+           $per_page = 10;
+       }
+
+       // get all Room
+       $rooms =  Room::paginate($per_page);
+
+       if ($rooms) {
+
+           // checking if data set have data
+           $response = [
+               'status'    => 'success',
+               'message'   => 'Rooms found',
+               'data'      => $rooms
+           ];
+       } else {
+
+           // if data set does not have data
+           $response = [
+               'status'    => 'error',
+               'message'   => 'No data for Rooms'
+           ];
+
+           $response_status = 404;
+       }
+
+
+
+       return response()->$response_type($response, $response_status);
+
+    }
 }
