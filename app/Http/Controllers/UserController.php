@@ -9,9 +9,7 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-   public function __construct(){
-     //  $this->middleware('auth:api');
-   }
+   public function __construct(){}
 
    /**
     * Login  
@@ -58,7 +56,7 @@ class UserController extends Controller
 	    $this->validate($request, [
 	       'first_name' => 'required',
 	       'last_name'  => 'required',
-	       'phone'      => 'required',
+	       'phone'      => 'required|min:11',
 	       'password'   => 'required|min:8',
 	       'email'   	=> 'required|unique:users'
 	    ]);
