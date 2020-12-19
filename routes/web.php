@@ -30,5 +30,13 @@ $router->group(['prefix' => 'api/'], function ($router) {
 		$router->get('customers/{id}','CustomerController@show');
 		$router->put('customers/{id}','CustomerController@update');
 		$router->delete('customers/{id}','CustomerController@destroy');
+
+
+		// Booking
+		$router->get('bookings','BookingController@index');
+		$router->post('bookings','BookingController@store');
+		$router->get('bookings/{id}','BookingController@show');
+		$router->put('bookings/{id}','BookingController@update');
+		$router->delete('bookings/{id}','BookingController@destroy');
 	});
 });
