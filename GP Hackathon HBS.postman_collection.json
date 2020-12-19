@@ -1,0 +1,3924 @@
+{
+	"info": {
+		"_postman_id": "ba6db429-a4b1-4901-902d-b224c313a4a8",
+		"name": "GP Hackathon HBS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "498d0401-dcf7-4e57-8206-f408ba87a6ca",
+								"exec": [
+									"if(pm.response.code == '200'){",
+									"    var error = true;",
+									"    var bearer_token;",
+									"    // check the response xml or json",
+									"    if(xml2Json(responseBody)){",
+									"        // converting xml response to json",
+									"        var jsonObject = xml2Json(responseBody); ",
+									"        if(jsonObject.response.status == 'success'){",
+									"            // Extracting the token from the response ",
+									"            bearer_token = jsonObject.response.api_token;",
+									"            error = false;",
+									"        } ",
+									"    } else {",
+									"        // Parsing the response returned by the request.",
+									"        var jsonData = pm.response.json(); ",
+									"        if(jsonData.status == 'success'){",
+									"            // Extracting the token from the response ",
+									"            bearer_token = jsonData.api_token;",
+									"            error = false;",
+									"        }",
+									"    }",
+									"    ",
+									"    if(!error){",
+									"        // Setting the token as a global variable.",
+									"        pm.globals.set(\"hbs_bearer_token\", bearer_token);",
+									"    }",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "admin.user@gp-hackathon.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{hbs_base_url}}/login",
+							"host": [
+								"{{hbs_base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "phone",
+											"value": "01829239127",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 17 Aug 2019 15:17:41 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.39 (Win64) OpenSSL/1.1.1b PHP/7.3.5"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.5"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Length",
+									"value": "127"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Successfully Logged in!\",\n    \"api_token\": \"UzJFU3JteXNFQUJtUUVDSElHUlEzUjJrcktYdG1KTURLa1Vjdks3TA==\"\n}"
+						}
+					]
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "first_name",
+									"value": "Muntaha",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "Ibn Ahmed",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "01839300418",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "ahamedmuntaha@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{hbs_base_url}}/register",
+							"host": [
+								"{{hbs_base_url}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Error - Validation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "first_name",
+											"value": "Muntaha",
+											"type": "text"
+										},
+										{
+											"key": "last_name",
+											"value": "Ibn Ahmed",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "01839300418",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "12345678",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "ahamedmuntaha@gmail.com",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{hbs_base_url}}/register",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Dec 2020 06:44:42 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Dec 2020 06:44:42 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"email\": [\n        \"The email has already been taken.\"\n    ]\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "first_name",
+											"value": "Muntaha",
+											"type": "text"
+										},
+										{
+											"key": "last_name",
+											"value": "Ibn Ahmed",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "01839300418",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "12345678",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "ahamedsmuntaha@gmail.com",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{hbs_base_url}}/register",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Dec 2020 06:46:06 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Dec 2020 06:46:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Your account created successfully, Now logged in to step forward.\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "current user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{hbs_bearer_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hbs_base_url}}/user",
+							"host": [
+								"{{hbs_base_url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{who_call_bearer_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/user",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 17 Aug 2019 15:46:19 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.39 (Win64) OpenSSL/1.1.1b PHP/7.3.5"
+								},
+								{
+									"key": "Vary",
+									"value": "Authorization"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.5"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Length",
+									"value": "265"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Current User\",\n    \"user\": {\n        \"id\": 1,\n        \"first_name\": \"Abdul\",\n        \"last_name\": \"Abdul\",\n        \"phone\": \"01829239127\",\n        \"api_token\": \"UzJFU3JteXNFQUJtUUVDSElHUlEzUjJrcktYdG1KTURLa1Vjdks3TA==\",\n        \"created_at\": \"2019-08-17 15:00:18\",\n        \"updated_at\": \"2019-08-17 15:17:41\"\n    }\n}"
+						},
+						{
+							"name": "Error - Bearer token is missing",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{hbs_bearer_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{hbs_base_url}}/user",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Dec 2020 06:47:32 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Dec 2020 06:47:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"Unauthorized\",\n    \"message\": \"Bearer token is missing\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "CRUD",
+					"item": [
+						{
+							"name": "Get All Customers",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{hbs_bearer_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{hbs_base_url}}/customers",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{hbs_bearer_token}}",
+												"type": "text"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{hbs_base_url}}/customers",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"customers"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 08:27:30 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 08:27:30 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"success\",\n    \"message\": \"Customers found\",\n    \"data\": {\n        \"current_page\": 1,\n        \"data\": [],\n        \"first_page_url\": \"http://localhost:8000/api/customers?page=1\",\n        \"from\": null,\n        \"last_page\": 1,\n        \"last_page_url\": \"http://localhost:8000/api/customers?page=1\",\n        \"links\": [\n            {\n                \"url\": null,\n                \"label\": \"pagination.previous\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/customers?page=1\",\n                \"label\": 1,\n                \"active\": true\n            },\n            {\n                \"url\": null,\n                \"label\": \"pagination.next\",\n                \"active\": false\n            }\n        ],\n        \"next_page_url\": null,\n        \"path\": \"http://localhost:8000/api/customers\",\n        \"per_page\": 10,\n        \"prev_page_url\": null,\n        \"to\": null,\n        \"total\": 0\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Get Single Customer",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{hbs_bearer_token}}"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{hbs_base_url}}/customers/2",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"customers",
+										"2"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{hbs_base_url}}/customers/2",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"customers",
+												"2"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 09:21:30 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 09:21:30 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"success\",\n    \"message\": \"Customer successfully found\",\n    \"data\": {\n        \"id\": 2,\n        \"registered_by\": 1,\n        \"first_name\": \"Abdul\",\n        \"last_name\": \"Halim\",\n        \"phone\": \"01221309210321\",\n        \"email\": \"adbdul.halim@!dfad.com\",\n        \"created_at\": \"2020-12-19T08:58:26.000000Z\",\n        \"updated_at\": \"2020-12-19T08:58:26.000000Z\"\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Create Customer",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{hbs_bearer_token}}"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "first_name",
+											"value": "Abdul",
+											"type": "text"
+										},
+										{
+											"key": "last_name",
+											"value": "Halim",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "01221309210321",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "adbdul.halim@!dfad.com",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{hbs_base_url}}/customers",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{hbs_bearer_token}}",
+												"type": "text"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{hbs_base_url}}/customers",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"customers"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 08:27:30 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 08:27:30 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"success\",\n    \"message\": \"Customers found\",\n    \"data\": {\n        \"current_page\": 1,\n        \"data\": [],\n        \"first_page_url\": \"http://localhost:8000/api/customers?page=1\",\n        \"from\": null,\n        \"last_page\": 1,\n        \"last_page_url\": \"http://localhost:8000/api/customers?page=1\",\n        \"links\": [\n            {\n                \"url\": null,\n                \"label\": \"pagination.previous\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/customers?page=1\",\n                \"label\": 1,\n                \"active\": true\n            },\n            {\n                \"url\": null,\n                \"label\": \"pagination.next\",\n                \"active\": false\n            }\n        ],\n        \"next_page_url\": null,\n        \"path\": \"http://localhost:8000/api/customers\",\n        \"per_page\": 10,\n        \"prev_page_url\": null,\n        \"to\": null,\n        \"total\": 0\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Update Customer",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{hbs_bearer_token}}"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "first_name",
+											"value": "Abdul",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "last_name",
+											"value": "Rahim",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "01221309210321",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "email",
+											"value": "adbdul.halim@!dfad.com",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{hbs_base_url}}/customers/2",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"customers",
+										"2"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/x-www-form-urlencoded",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "last_name",
+													"value": "Rahim",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{hbs_base_url}}/customers/2",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"customers",
+												"2"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 09:28:09 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 09:28:09 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"success\",\n    \"message\": \"Customer updated successfully\",\n    \"data\": {\n        \"id\": 2,\n        \"registered_by\": 1,\n        \"first_name\": \"Abdul\",\n        \"last_name\": \"Rahim\",\n        \"phone\": \"01221309210321\",\n        \"email\": \"adbdul.halim@!dfad.com\",\n        \"created_at\": \"2020-12-19T08:58:26.000000Z\",\n        \"updated_at\": \"2020-12-19T09:28:09.000000Z\"\n    }\n}"
+								},
+								{
+									"name": "Error",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "first_name",
+													"value": "Abdul",
+													"type": "text"
+												},
+												{
+													"key": "last_name",
+													"value": "Halims",
+													"type": "text"
+												},
+												{
+													"key": "phone",
+													"value": "01221309210321",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "email",
+													"value": "adbdul.halim@!dfad.com",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "{{hbs_base_url}}/customers/1",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"customers",
+												"1"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 09:22:38 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 09:22:38 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"error\",\n    \"message\": \"Customer does not exist\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete Customer",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{hbs_bearer_token}}"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{hbs_base_url}}/customers/2",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"customers",
+										"2"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{hbs_base_url}}/customers/2",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"customers",
+												"2"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 09:29:17 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 09:29:17 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"success\",\n    \"message\": \"Customer Deleted Successfully\"\n}"
+								},
+								{
+									"name": "Error",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{hbs_base_url}}/customers/2",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"customers",
+												"2"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 09:29:46 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 09:29:46 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"error\",\n    \"message\": \"Customer does not exist\"\n}"
+								}
+							]
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Booking",
+			"item": [
+				{
+					"name": "CRUD",
+					"item": [
+						{
+							"name": "Get All Bookings",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{hbs_bearer_token}}"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{hbs_base_url}}/bookings",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"bookings"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{hbs_base_url}}/bookings",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"bookings"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 10:36:54 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 10:36:54 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"success\",\n    \"message\": \"Bookings found\",\n    \"data\": {\n        \"current_page\": 1,\n        \"data\": [],\n        \"first_page_url\": \"http://localhost:8000/api/bookings?page=1\",\n        \"from\": null,\n        \"last_page\": 1,\n        \"last_page_url\": \"http://localhost:8000/api/bookings?page=1\",\n        \"links\": [\n            {\n                \"url\": null,\n                \"label\": \"pagination.previous\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/bookings?page=1\",\n                \"label\": 1,\n                \"active\": true\n            },\n            {\n                \"url\": null,\n                \"label\": \"pagination.next\",\n                \"active\": false\n            }\n        ],\n        \"next_page_url\": null,\n        \"path\": \"http://localhost:8000/api/bookings\",\n        \"per_page\": 10,\n        \"prev_page_url\": null,\n        \"to\": null,\n        \"total\": 0\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Get Single Booking",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{hbs_bearer_token}}"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{hbs_base_url}}/bookings/2",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"bookings",
+										"2"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{hbs_base_url}}/bookings/2",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"bookings",
+												"2"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 10:37:27 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 10:37:27 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"error\",\n    \"message\": \"Booking does not exist\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Create Booking",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{hbs_bearer_token}}"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "customer_id",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "room_number",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "total_person",
+											"value": "5",
+											"type": "text"
+										},
+										{
+											"key": "book_type",
+											"value": "reserve",
+											"type": "text"
+										},
+										{
+											"key": "arrival",
+											"value": "2020-12-17 10:13:00",
+											"type": "text"
+										},
+										{
+											"key": "checkout",
+											"value": "2020-12-19 10:13:00",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{hbs_base_url}}/bookings",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"bookings"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "customer_id",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "room_number",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "total_person",
+													"value": "5",
+													"type": "text"
+												},
+												{
+													"key": "book_type",
+													"value": "reserve",
+													"type": "text"
+												},
+												{
+													"key": "arrival",
+													"value": "2020-12-17 10:13:00",
+													"type": "text"
+												},
+												{
+													"key": "checkout",
+													"value": "2020-12-19 10:13:00",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{hbs_base_url}}/bookings",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"bookings"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 11:09:01 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 11:09:01 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"success\",\n    \"message\": \"Booking Created\",\n    \"data\": {\n        \"customer_id\": \"3\",\n        \"booked_by\": 1,\n        \"room_number\": \"2\",\n        \"total_person\": \"5\",\n        \"book_type\": \"reserve\",\n        \"arrival\": \"2020-12-17 10:13:00\",\n        \"checkout\": \"2020-12-19 10:13:00\",\n        \"updated_at\": \"2020-12-19T11:09:01.000000Z\",\n        \"created_at\": \"2020-12-19T11:09:01.000000Z\",\n        \"id\": 1\n    }\n}"
+								},
+								{
+									"name": "Error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "customer_id",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "room_number",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "total_person",
+													"value": "5",
+													"type": "text"
+												},
+												{
+													"key": "book_type",
+													"value": "reserve",
+													"type": "text"
+												},
+												{
+													"key": "arrival",
+													"value": "2020-12-17 10:13:00",
+													"type": "text"
+												},
+												{
+													"key": "checkout",
+													"value": "2020-12-19 10:13:00",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{hbs_base_url}}/bookings",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"bookings"
+											]
+										}
+									},
+									"status": "Unprocessable Entity",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 10:52:52 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 10:52:52 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"customer_id\": [\n        \"The selected customer id is invalid.\"\n    ],\n    \"room_number\": [\n        \"The selected room number is invalid.\"\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Update Booking",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{hbs_bearer_token}}"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "customer_id",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "room_number",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "total_person",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "book_type",
+											"value": "reserve",
+											"type": "text"
+										},
+										{
+											"key": "arrival",
+											"value": "2020-12-18 10:13:00",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "checkout",
+											"value": "2020-12-19 10:13:00",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{hbs_base_url}}/bookings/1",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"bookings",
+										"1"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Error",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/x-www-form-urlencoded"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "customer_id",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "room_number",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "total_person",
+													"value": "5",
+													"type": "text"
+												},
+												{
+													"key": "book_type",
+													"value": "reserve",
+													"type": "text"
+												},
+												{
+													"key": "arrival",
+													"value": "2020-12-17 10:13:00",
+													"type": "text"
+												},
+												{
+													"key": "checkout",
+													"value": "2020-12-19 10:13:00",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{hbs_base_url}}/bookings/2",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"bookings",
+												"2"
+											]
+										}
+									},
+									"status": "Unprocessable Entity",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 10:53:41 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 10:53:41 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"customer_id\": [\n        \"The selected customer id is invalid.\"\n    ],\n    \"room_number\": [\n        \"The selected room number is invalid.\"\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete Booking",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{hbs_bearer_token}}"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{hbs_base_url}}/bookings/2",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"bookings",
+										"2"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Error",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{hbs_base_url}}/bookings/2",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"bookings",
+												"2"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 10:37:41 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 10:37:41 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"error\",\n    \"message\": \"Booking does not exist\"\n}"
+								}
+							]
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Check In",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{hbs_bearer_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{hbs_base_url}}/bookings/1/check-in",
+							"host": [
+								"{{hbs_base_url}}"
+							],
+							"path": [
+								"bookings",
+								"1",
+								"check-in"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{hbs_bearer_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{hbs_base_url}}/bookings/1/check-in",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"bookings",
+										"1",
+										"check-in"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Dec 2020 12:48:50 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Dec 2020 12:48:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Checked in successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Check Out",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{hbs_bearer_token}}"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{hbs_base_url}}/bookings/1/check-out",
+							"host": [
+								"{{hbs_base_url}}"
+							],
+							"path": [
+								"bookings",
+								"1",
+								"check-out"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Bookings Payments Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{hbs_bearer_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hbs_base_url}}/bookings/all/payment-status",
+							"host": [
+								"{{hbs_base_url}}"
+							],
+							"path": [
+								"bookings",
+								"all",
+								"payment-status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Single Booking Payments Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{hbs_bearer_token}}"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{hbs_base_url}}/bookings/1/payment-status",
+							"host": [
+								"{{hbs_base_url}}"
+							],
+							"path": [
+								"bookings",
+								"1",
+								"payment-status"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{hbs_bearer_token}}"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{hbs_base_url}}/bookings/1/payment-status",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"bookings",
+										"1",
+										"payment-status"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Dec 2020 13:14:33 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Dec 2020 13:14:33 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Checked out successfully\",\n    \"total-rent\": 500,\n    \"total-paid\": 270,\n    \"total-remain\": 230\n}"
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "10274b4e-d9c9-4b21-88a7-76ea541391e4",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "33ec7d81-1184-4820-bac0-68262c85e82e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Room",
+			"item": [
+				{
+					"name": "CRUD",
+					"item": [
+						{
+							"name": "Get All Rooms",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{hbs_bearer_token}}"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{hbs_base_url}}/rooms",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"rooms"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{hbs_base_url}}/rooms",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"rooms"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 11:49:44 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 11:49:44 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"success\",\n    \"message\": \"Rooms found\",\n    \"data\": {\n        \"current_page\": 1,\n        \"data\": [\n            {\n                \"id\": 1,\n                \"room_number\": \"Room-1\",\n                \"price\": \"500.00\",\n                \"is_locked\": 0,\n                \"max_person\": 4,\n                \"room_type\": \"Non A/C\",\n                \"created_at\": null,\n                \"updated_at\": null\n            },\n            {\n                \"id\": 2,\n                \"room_number\": \"Room-2\",\n                \"price\": \"1000.00\",\n                \"is_locked\": 0,\n                \"max_person\": 8,\n                \"room_type\": \"A/C\",\n                \"created_at\": null,\n                \"updated_at\": null\n            },\n            {\n                \"id\": 3,\n                \"room_number\": \"Room-3\",\n                \"price\": \"500.00\",\n                \"is_locked\": 0,\n                \"max_person\": 4,\n                \"room_type\": \"Non A/C\",\n                \"created_at\": null,\n                \"updated_at\": null\n            },\n            {\n                \"id\": 4,\n                \"room_number\": \"Room-4\",\n                \"price\": \"1000.00\",\n                \"is_locked\": 0,\n                \"max_person\": 8,\n                \"room_type\": \"A/C\",\n                \"created_at\": null,\n                \"updated_at\": null\n            },\n            {\n                \"id\": 5,\n                \"room_number\": \"Room-5\",\n                \"price\": \"500.00\",\n                \"is_locked\": 0,\n                \"max_person\": 4,\n                \"room_type\": \"Non A/C\",\n                \"created_at\": null,\n                \"updated_at\": null\n            },\n            {\n                \"id\": 6,\n                \"room_number\": \"Room-6\",\n                \"price\": \"1000.00\",\n                \"is_locked\": 0,\n                \"max_person\": 8,\n                \"room_type\": \"A/C\",\n                \"created_at\": null,\n                \"updated_at\": null\n            },\n            {\n                \"id\": 7,\n                \"room_number\": \"Room-7\",\n                \"price\": \"500.00\",\n                \"is_locked\": 0,\n                \"max_person\": 4,\n                \"room_type\": \"Non A/C\",\n                \"created_at\": null,\n                \"updated_at\": null\n            },\n            {\n                \"id\": 8,\n                \"room_number\": \"Room-8\",\n                \"price\": \"1000.00\",\n                \"is_locked\": 0,\n                \"max_person\": 8,\n                \"room_type\": \"A/C\",\n                \"created_at\": null,\n                \"updated_at\": null\n            },\n            {\n                \"id\": 9,\n                \"room_number\": \"Room-9\",\n                \"price\": \"500.00\",\n                \"is_locked\": 0,\n                \"max_person\": 4,\n                \"room_type\": \"Non A/C\",\n                \"created_at\": null,\n                \"updated_at\": null\n            },\n            {\n                \"id\": 10,\n                \"room_number\": \"Room-10\",\n                \"price\": \"1000.00\",\n                \"is_locked\": 0,\n                \"max_person\": 8,\n                \"room_type\": \"A/C\",\n                \"created_at\": null,\n                \"updated_at\": null\n            }\n        ],\n        \"first_page_url\": \"http://localhost:8000/api/rooms?page=1\",\n        \"from\": 1,\n        \"last_page\": 1,\n        \"last_page_url\": \"http://localhost:8000/api/rooms?page=1\",\n        \"links\": [\n            {\n                \"url\": null,\n                \"label\": \"pagination.previous\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/rooms?page=1\",\n                \"label\": 1,\n                \"active\": true\n            },\n            {\n                \"url\": null,\n                \"label\": \"pagination.next\",\n                \"active\": false\n            }\n        ],\n        \"next_page_url\": null,\n        \"path\": \"http://localhost:8000/api/rooms\",\n        \"per_page\": 10,\n        \"prev_page_url\": null,\n        \"to\": 10,\n        \"total\": 10\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Get Single Room",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{hbs_bearer_token}}"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{hbs_base_url}}/rooms/12",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"rooms",
+										"12"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{hbs_base_url}}/rooms/12",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"rooms",
+												"12"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 11:50:44 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 11:50:44 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"error\",\n    \"message\": \"Room does not exist\"\n}"
+								},
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{hbs_base_url}}/rooms/1",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"rooms",
+												"1"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 11:50:29 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 11:50:29 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"success\",\n    \"message\": \"Room successfully found\",\n    \"data\": {\n        \"id\": 1,\n        \"room_number\": \"Room-1\",\n        \"price\": \"500.00\",\n        \"is_locked\": 0,\n        \"max_person\": 4,\n        \"room_type\": \"Non A/C\",\n        \"created_at\": null,\n        \"updated_at\": null\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Create Room",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{hbs_bearer_token}}"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "room_number",
+											"value": "Room-11",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "800",
+											"type": "text"
+										},
+										{
+											"key": "max_person",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "room_type",
+											"value": "A/C",
+											"type": "text"
+										},
+										{
+											"key": "is_locked",
+											"value": "0",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{hbs_base_url}}/rooms",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"rooms"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "room_number",
+													"value": "Room-11",
+													"type": "text"
+												},
+												{
+													"key": "price",
+													"value": "800",
+													"type": "text"
+												},
+												{
+													"key": "max_person",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "room_type",
+													"value": "A/C",
+													"type": "text"
+												},
+												{
+													"key": "is_locked",
+													"value": "0",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "{{hbs_base_url}}/rooms",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"rooms"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 11:54:11 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 11:54:11 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"success\",\n    \"message\": \"Room Created\",\n    \"data\": {\n        \"room_number\": \"Room-11\",\n        \"price\": \"800\",\n        \"max_person\": \"2\",\n        \"room_type\": \"A/C\",\n        \"is_locked\": 0,\n        \"updated_at\": \"2020-12-19T11:54:11.000000Z\",\n        \"created_at\": \"2020-12-19T11:54:11.000000Z\",\n        \"id\": 11\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Update Room",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{hbs_bearer_token}}"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "price",
+											"value": "900",
+											"type": "text"
+										},
+										{
+											"key": "max_person",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "is_locked",
+											"value": "0",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "room_type",
+											"value": "A/C",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{hbs_base_url}}/rooms/11",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"rooms",
+										"11"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/x-www-form-urlencoded"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "price",
+													"value": "900",
+													"type": "text"
+												},
+												{
+													"key": "max_person",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "is_locked",
+													"value": "0",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "room_type",
+													"value": "A/C",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "{{hbs_base_url}}/rooms/11",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"rooms",
+												"11"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 11:56:33 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 11:56:33 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"success\",\n    \"message\": \"Room updated successfully\",\n    \"data\": {\n        \"id\": 11,\n        \"room_number\": \"Room-11\",\n        \"price\": \"900\",\n        \"is_locked\": 0,\n        \"max_person\": \"3\",\n        \"room_type\": \"A/C\",\n        \"created_at\": \"2020-12-19T11:54:11.000000Z\",\n        \"updated_at\": \"2020-12-19T11:56:33.000000Z\"\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete Room",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{hbs_bearer_token}}"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{hbs_base_url}}/rooms/11",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"rooms",
+										"11"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Error",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{hbs_base_url}}/rooms/11",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"rooms",
+												"11"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 11:58:17 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 11:58:17 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"error\",\n    \"message\": \"Room does not exist\"\n}"
+								},
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{hbs_base_url}}/rooms/11",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"rooms",
+												"11"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 11:58:05 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 11:58:05 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"success\",\n    \"message\": \"Room Deleted Successfully\"\n}"
+								}
+							]
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Available Rooms",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{hbs_bearer_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hbs_base_url}}/rooms-available",
+							"host": [
+								"{{hbs_base_url}}"
+							],
+							"path": [
+								"rooms-available"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{hbs_bearer_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{hbs_base_url}}/rooms-available",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"rooms-available"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Dec 2020 13:03:40 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Dec 2020 13:03:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Rooms found\",\n    \"data\": {\n        \"current_page\": 1,\n        \"data\": [\n            {\n                \"id\": 1,\n                \"room_number\": \"Room-1\",\n                \"price\": \"500.00\",\n                \"is_locked\": 0,\n                \"max_person\": 4,\n                \"room_type\": \"Non A/C\",\n                \"created_at\": null,\n                \"updated_at\": \"2020-12-19T12:49:44.000000Z\"\n            },\n            {\n                \"id\": 2,\n                \"room_number\": \"Room-2\",\n                \"price\": \"1000.00\",\n                \"is_locked\": 0,\n                \"max_person\": 8,\n                \"room_type\": \"A/C\",\n                \"created_at\": null,\n                \"updated_at\": null\n            },\n            {\n                \"id\": 3,\n                \"room_number\": \"Room-3\",\n                \"price\": \"500.00\",\n                \"is_locked\": 0,\n                \"max_person\": 4,\n                \"room_type\": \"Non A/C\",\n                \"created_at\": null,\n                \"updated_at\": null\n            },\n            {\n                \"id\": 4,\n                \"room_number\": \"Room-4\",\n                \"price\": \"1000.00\",\n                \"is_locked\": 0,\n                \"max_person\": 8,\n                \"room_type\": \"A/C\",\n                \"created_at\": null,\n                \"updated_at\": null\n            },\n            {\n                \"id\": 5,\n                \"room_number\": \"Room-5\",\n                \"price\": \"500.00\",\n                \"is_locked\": 0,\n                \"max_person\": 4,\n                \"room_type\": \"Non A/C\",\n                \"created_at\": null,\n                \"updated_at\": null\n            },\n            {\n                \"id\": 6,\n                \"room_number\": \"Room-6\",\n                \"price\": \"1000.00\",\n                \"is_locked\": 0,\n                \"max_person\": 8,\n                \"room_type\": \"A/C\",\n                \"created_at\": null,\n                \"updated_at\": null\n            },\n            {\n                \"id\": 7,\n                \"room_number\": \"Room-7\",\n                \"price\": \"500.00\",\n                \"is_locked\": 0,\n                \"max_person\": 4,\n                \"room_type\": \"Non A/C\",\n                \"created_at\": null,\n                \"updated_at\": null\n            },\n            {\n                \"id\": 8,\n                \"room_number\": \"Room-8\",\n                \"price\": \"1000.00\",\n                \"is_locked\": 0,\n                \"max_person\": 8,\n                \"room_type\": \"A/C\",\n                \"created_at\": null,\n                \"updated_at\": null\n            },\n            {\n                \"id\": 9,\n                \"room_number\": \"Room-9\",\n                \"price\": \"500.00\",\n                \"is_locked\": 0,\n                \"max_person\": 4,\n                \"room_type\": \"Non A/C\",\n                \"created_at\": null,\n                \"updated_at\": null\n            },\n            {\n                \"id\": 10,\n                \"room_number\": \"Room-10\",\n                \"price\": \"1000.00\",\n                \"is_locked\": 0,\n                \"max_person\": 8,\n                \"room_type\": \"A/C\",\n                \"created_at\": null,\n                \"updated_at\": null\n            }\n        ],\n        \"first_page_url\": \"http://localhost:8000/api/rooms-available?page=1\",\n        \"from\": 1,\n        \"last_page\": 1,\n        \"last_page_url\": \"http://localhost:8000/api/rooms-available?page=1\",\n        \"links\": [\n            {\n                \"url\": null,\n                \"label\": \"pagination.previous\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/rooms-available?page=1\",\n                \"label\": 1,\n                \"active\": true\n            },\n            {\n                \"url\": null,\n                \"label\": \"pagination.next\",\n                \"active\": false\n            }\n        ],\n        \"next_page_url\": null,\n        \"path\": \"http://localhost:8000/api/rooms-available\",\n        \"per_page\": 10,\n        \"prev_page_url\": null,\n        \"to\": 10,\n        \"total\": 10\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "CRUD",
+					"item": [
+						{
+							"name": "Get All Payments",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{hbs_bearer_token}}"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{hbs_base_url}}/payments",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"payments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Single Payment",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{hbs_bearer_token}}"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{hbs_base_url}}/payments/1",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"payments",
+										"1"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{hbs_base_url}}/payments/1",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"payments",
+												"1"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 12:03:08 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 12:03:08 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"error\",\n    \"message\": \"Payment does not exist\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Create Payment",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{hbs_bearer_token}}"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "customer_id",
+											"value": "4",
+											"type": "text"
+										},
+										{
+											"key": "booking_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "amount",
+											"value": "150",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{hbs_base_url}}/payments",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"payments"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Validation Error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "customer_id",
+													"value": "31",
+													"type": "text"
+												},
+												{
+													"key": "booking_id",
+													"value": "12",
+													"type": "text"
+												},
+												{
+													"key": "amount",
+													"value": "120",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{hbs_base_url}}/payments",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"payments"
+											]
+										}
+									},
+									"status": "Unprocessable Entity",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 12:05:14 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 12:05:14 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"customer_id\": [\n        \"The selected customer id is invalid.\"\n    ],\n    \"booking_id\": [\n        \"The selected booking id is invalid.\"\n    ]\n}"
+								},
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "customer_id",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "booking_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "amount",
+													"value": "120",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{hbs_base_url}}/payments",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"payments"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 12:04:38 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 12:04:38 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"success\",\n    \"message\": \"Payment Created\",\n    \"data\": {\n        \"customer_id\": \"3\",\n        \"booking_id\": \"1\",\n        \"amount\": \"120\",\n        \"updated_at\": \"2020-12-19T12:04:38.000000Z\",\n        \"created_at\": \"2020-12-19T12:04:38.000000Z\",\n        \"id\": 1\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Update Payment",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{hbs_bearer_token}}"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "customer_id",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "booking_id",
+											"value": "12",
+											"type": "text"
+										},
+										{
+											"key": "amount",
+											"value": "1200",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{hbs_base_url}}/payments/1",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"payments",
+										"1"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Validation Error",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/x-www-form-urlencoded"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "customer_id",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "booking_id",
+													"value": "12",
+													"type": "text"
+												},
+												{
+													"key": "amount",
+													"value": "1200",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{hbs_base_url}}/payments/1",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"payments",
+												"1"
+											]
+										}
+									},
+									"status": "Unprocessable Entity",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 12:06:47 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 12:06:47 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"booking_id\": [\n        \"The selected booking id is invalid.\"\n    ]\n}"
+								},
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/x-www-form-urlencoded"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "customer_id",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "booking_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "amount",
+													"value": "1200",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{hbs_base_url}}/payments/1",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"payments",
+												"1"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 12:06:09 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 12:06:09 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"success\",\n    \"message\": \"Payment updated successfully\",\n    \"data\": {\n        \"id\": 1,\n        \"customer_id\": \"3\",\n        \"booking_id\": \"1\",\n        \"amount\": \"1200\",\n        \"created_at\": \"2020-12-19T12:04:38.000000Z\",\n        \"updated_at\": \"2020-12-19T12:06:09.000000Z\"\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete Payment",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{hbs_bearer_token}}"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{hbs_base_url}}/payments/1",
+									"host": [
+										"{{hbs_base_url}}"
+									],
+									"path": [
+										"payments",
+										"1"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{hbs_base_url}}/payments/1",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"payments",
+												"1"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 12:07:11 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 12:07:11 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"success\",\n    \"message\": \"Payment Deleted Successfully\"\n}"
+								},
+								{
+									"name": "Error",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{hbs_bearer_token}}"
+											},
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{hbs_base_url}}/payments/1",
+											"host": [
+												"{{hbs_base_url}}"
+											],
+											"path": [
+												"payments",
+												"1"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 12:07:38 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 19 Dec 2020 12:07:38 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.13"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"error\",\n    \"message\": \"Payment does not exist\"\n}"
+								}
+							]
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Framework Version",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hbs_base_url}}",
+					"host": [
+						"{{hbs_base_url}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Successfully get the framework version",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hbs_base_url}}",
+							"host": [
+								"{{hbs_base_url}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 19 Dec 2020 05:00:23 GMT"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 19 Dec 2020 05:00:23 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/7.4.13"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "Lumen (8.2.1) (Laravel Components ^8.0)"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "28144e87-011c-457b-8236-da78da19e67e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "63f31af7-8943-4370-b675-a5d85b60af3f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "b40babfc-93cf-4fc7-b7d1-612da7a78f43",
+			"key": "hbs_base_url",
+			"value": "http://localhost:8000/api",
+			"type": "string"
+		}
+	]
+}
