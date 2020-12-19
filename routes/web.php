@@ -22,8 +22,13 @@ $router->group(['prefix' => 'api/'], function ($router) {
 
 	$router->group(['middleware' => 'auth'], function ($router) {
 		// User
-		$router->get('user/','UserController@currentUser');
+		$router->get('user','UserController@currentUser');
 
-		
+		// Customer
+		$router->get('customers','CustomerController@index');
+		$router->post('customers','CustomerController@store');
+		$router->get('customers/{id}','CustomerController@show');
+		$router->put('customers/{id}','CustomerController@update');
+		$router->delete('customers/{id}','CustomerController@destroy');
 	});
 });
