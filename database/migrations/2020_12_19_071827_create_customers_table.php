@@ -1,0 +1,43 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateCustomersTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('customers', function (Blueprint $table) {
+            // Key
+            $table->bigIncrements('id');
+            
+            $table->unsignedBigInteger('registered_by'); // person who register the curtomer
+            $table->foreign('registered_by')->references('id')->on('users');
+
+            // General Information
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('phone');
+            $table->string('email');
+
+            // Time
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('cutomers');
+    }
+}
