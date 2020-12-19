@@ -484,4 +484,54 @@ class BookingController extends Controller
 
         return response()->$response_type($response, $response_status);
     }
+
+    /**
+     * Payment status.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function paymentStatus(Request $request, $id){
+      $response_type = $request->format('json');
+
+      $response_status = 200;
+
+      if($id == 'all'){
+        
+        $bookings = [];
+        foreach (Booking::get() as $booking) {
+          $bookings[] = [
+            'id'            => $booking->id,
+            'total-rent'    => (float) $booking->Room->price,
+            'total-paid'    => $booking->Payment->sum('amount'),
+            'total-remain'  => (float) $booking->Room->price - $booking->Payment->sum('amount'),
+          ];
+        }
+
+        $response = [
+            'status'    => 'success',
+            'message'   => 'Payment Status Generated Successfully',
+            'data'      => $bookings
+        ];
+      } else {
+
+        // find Booking with id
+        $booking =  Booking::find($id);
+        
+        $response = [
+            'status'    => 'success',
+            'message'   => 'Payment Status Generated Successfully',
+            'data'      => [
+                'id'            => id,
+                'total-rent'    => (float) $booking->Room->price,
+                'total-paid'    => $booking->Payment->sum('amount'),
+                'total-remain'  => (float) $booking->Room->price - $booking->Payment->sum('amount'),
+            ]
+        ];
+      }
+
+      return response()->$response_type($response, $response_status);
+    }
+
 }

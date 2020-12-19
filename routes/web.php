@@ -40,6 +40,7 @@ $router->group(['prefix' => 'api/'], function ($router) {
 
 		$router->post('bookings/{id}/check-in','BookingController@checkIn');
 		$router->post('bookings/{id}/check-out','BookingController@checkOut');
+		$router->get('bookings/{id}/payment-status','BookingController@paymentStatus');
 
 		// Room
 		$router->get('rooms','RoomController@index');
