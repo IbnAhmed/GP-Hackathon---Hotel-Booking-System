@@ -15,7 +15,7 @@ Develop a hotel booking system using REST API. The hotel has 10 rooms, customers
 
 ## Demo user for auth
 
-Email: `admin.user@gp-hackathon.com`
+Email: `admin.user@gp-hackathon.com`<br>
 Password: `password123`
 
 ## Postman Collection Instruction
